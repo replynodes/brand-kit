@@ -1,0 +1,1 @@
+This repository is the MIT-licensed open-source client. The hosted ReplyNodes service is proprietary and separate, and its runtime endpoint is https://brand.replynodes.com/{bare-domain}. The client emits logo and backdrop references only; it does not download logo binaries.
