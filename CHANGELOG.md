@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.2
+
+- Patch release with npm discovery keywords; scoped package metadata is ready for publication as the immutable replacement for published v0.1.1.
+
 ## 0.1.1
 
 - Migration target: publish the package as the public npm package `@replynodes/brand-kit`.
