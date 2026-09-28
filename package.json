@@ -1,0 +1,14 @@
+{
+  "name": "brand-kit",
+  "version": "0.1.0",
+  "description": "Generate a deterministic, agent-ready brand context package from a public brand aggregate.",
+  "type": "module",
+  "bin": { "brand-kit": "bin/brand-kit.mjs" },
+  "engines": { "node": ">=20.19.0" },
+  "files": ["bin", "src", "scripts", "README.md", "LICENSE", "NOTICE.md", "CONTRIBUTING.md", "SECURITY.md", "CODE_OF_CONDUCT.md", "CHANGELOG.md"],
+  "scripts": {
+    "smoke": "node scripts/smoke.mjs",
+    "package-shape": "npm pack --dry-run"
+  },
+  "license": "MIT"
+}
