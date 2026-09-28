@@ -2,12 +2,12 @@
 
 ## 0.1.2
 
-- Patch release with npm discovery keywords; scoped package metadata is ready for publication as the immutable replacement for published v0.1.1.
+- Unpublished patch replacement adding npm discovery keywords; the published `@replynodes/brand-kit@0.1.1` remains the current scoped npm release.
 
 ## 0.1.1
 
-- Migration target: publish the package as the public npm package `@replynodes/brand-kit`.
-- npm publication is the v0.1.1 release target and has not yet occurred.
+- Published as the public npm package `@replynodes/brand-kit`.
+- `@replynodes/brand-kit@0.1.1` remains the current scoped npm release.
 
 ## 0.1.0
 

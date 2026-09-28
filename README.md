@@ -46,4 +46,4 @@ The client in this repository is MIT-licensed. The hosted aggregate service at `
 
 ## Contribution and release notes
 
-See `CONTRIBUTING.md` for checks and contribution boundaries. CI runs smoke/contract checks on Node 20.x and 22.x. The v0.1.2 release is the immutable replacement for the published v0.1.1 scoped package on npm, using trusted publishing with provenance.
+See `CONTRIBUTING.md` for checks and contribution boundaries. CI runs smoke/contract checks on Node 20.x and 22.x. The published scoped npm release is `@replynodes/brand-kit@0.1.1`; v0.1.2 is an unpublished patch replacement adding npm discovery keywords.
