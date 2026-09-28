@@ -1,6 +1,6 @@
 {
-  "name": "brand-kit",
-  "version": "0.1.0",
+  "name": "@replynodes/brand-kit",
+  "version": "0.1.1",
   "description": "Generate a deterministic, agent-ready brand context package from a public brand aggregate.",
   "type": "module",
   "bin": { "brand-kit": "bin/brand-kit.mjs" },
