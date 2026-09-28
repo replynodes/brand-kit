@@ -8,6 +8,27 @@ import { spawn } from 'node:child_process';
 const expectedFiles = ['DESIGN.md', 'brand.json', 'colors.json', 'fonts.json', 'logos.json', 'tokens.css'];
 const SMOKE_ERROR = 'brand-kit smoke: verification failed\n';
 
+async function runCli(root, cwd, domain) {
+  return await new Promise((resolve, reject) => {
+    const child = spawn(process.execPath, [path.join(root, 'bin/brand-kit.mjs'), domain], { cwd, stdio: ['ignore', 'pipe', 'pipe'] });
+    let stdout = '', stderr = '';
+    child.stdout.on('data', chunk => stdout += chunk);
+    child.stderr.on('data', chunk => stderr += chunk);
+    child.on('error', reject);
+    child.on('close', code => resolve({ code, stdout, stderr }));
+  });
+}
+
+async function assertExistingDestinationRejected(root, temp, setup, verify) {
+  await fs.rm(path.join(temp, 'brand'), { recursive: true, force: true });
+  await setup();
+  const result = await runCli(root, temp, 'linear.app');
+  assert.equal(result.code, 4);
+  assert.equal(result.stdout, '');
+  assert.equal(result.stderr, 'brand-kit: destination ./brand already exists; remove it or choose an empty working directory\n');
+  await verify();
+}
+
 async function run() {
   const args = process.argv.slice(2);
   if (args.length > 1) {
@@ -18,14 +39,19 @@ async function run() {
   const temp = await fs.mkdtemp(path.join(os.tmpdir(), 'brand-kit-smoke-'));
   const root = path.resolve(import.meta.dirname, '..');
   try {
-    const result = await new Promise((resolve, reject) => {
-      const child = spawn(process.execPath, [path.join(root, 'bin/brand-kit.mjs'), domain], { cwd: temp, stdio: ['ignore', 'pipe', 'pipe'] });
-      let stdout = '', stderr = '';
-      child.stdout.on('data', chunk => stdout += chunk);
-      child.stderr.on('data', chunk => stderr += chunk);
-      child.on('error', reject);
-      child.on('close', code => resolve({ code, stdout, stderr }));
-    });
+    await assertExistingDestinationRejected(root, temp,
+      async () => { await fs.mkdir(path.join(temp, 'brand')); await fs.writeFile(path.join(temp, 'brand', 'keep.txt'), 'keep\n'); },
+      async () => assert.equal(await fs.readFile(path.join(temp, 'brand', 'keep.txt'), 'utf8'), 'keep\n'));
+    await assertExistingDestinationRejected(root, temp,
+      async () => { await fs.writeFile(path.join(temp, 'brand'), 'keep\n'); },
+      async () => assert.equal(await fs.readFile(path.join(temp, 'brand'), 'utf8'), 'keep\n'));
+    const danglingTarget = path.join(temp, 'missing-target');
+    await assertExistingDestinationRejected(root, temp,
+      async () => { await fs.symlink(danglingTarget, path.join(temp, 'brand')); },
+      async () => assert.equal((await fs.lstat(path.join(temp, 'brand'))).isSymbolicLink(), true));
+
+    await fs.rm(path.join(temp, 'brand'), { recursive: true, force: true });
+    const result = await runCli(root, temp, domain);
     assert.equal(result.code, 0);
     assert.equal(result.stdout, 'Brand kit written to ./brand/ (6 files)\n');
     assert.equal(result.stderr, '');

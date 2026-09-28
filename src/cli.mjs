@@ -60,9 +60,9 @@ function normalizeStyleguide(value) {
   const result = {};
   for (const key of ['domain', 'url', 'status']) if (key in value) result[key] = scalar(value[key]);
   for (const key of ['mode', 'colors', 'typography', 'buttons', 'card', 'spacing', 'shadows', 'radii']) {
-    if (key in value) result[key] = canonical(value[key]);
+    if (key in value) result[key] = value[key];
   }
-  return Object.keys(result).length ? result : null;
+  return Object.keys(result).length ? canonical(result) : null;
 }
 
 function normalizeColors(value) {
@@ -124,7 +124,16 @@ function cssString(value) {
 function tokens(data) {
   const lines = ['/* Brand Kit tokens v0.1: generated from available source signals. */'];
   const vars = [];
-  for (const item of data.colors.colors) if (item.hex !== null) vars.push(`  --brand-color-${vars.filter(v => v.startsWith('  --brand-color-')).length + 1}: ${/^#[0-9a-fA-F]{3,8}$/.test(item.hex) ? item.hex : cssString(item.hex)};`);
+  const seenColors = new Set();
+  let colorIndex = 0;
+  for (const item of data.colors.colors) {
+    if (item.hex === null) continue;
+    const colorKey = item.hex.toLowerCase();
+    if (seenColors.has(colorKey)) continue;
+    seenColors.add(colorKey);
+    colorIndex += 1;
+    vars.push(`  --brand-color-${colorIndex}: ${/^#[0-9a-fA-F]{3,8}$/.test(item.hex) ? item.hex : cssString(item.hex)};`);
+  }
   for (let i = 0; i < data.fonts.fonts.length; i++) vars.push(`  --brand-font-${i + 1}: ${cssString(data.fonts.fonts[i])};`);
   if (!vars.length) lines.push('/* No color or font tokens were available. */');
   lines.push(':root {', ...vars, '}');
@@ -160,6 +169,23 @@ async function request(domain) {
 
 async function exists(file) { try { await fs.lstat(file); return true; } catch { return false; } }
 
+function sameIdentity(actual, expected) {
+  return actual.dev === expected.dev && actual.ino === expected.ino;
+}
+
+async function removeOwnedDestination(destination, destinationIdentity, files) {
+  for (const [file, identity] of files.reverse()) {
+    try {
+      const current = await fs.lstat(file);
+      if (sameIdentity(current, identity)) await fs.unlink(file);
+    } catch {}
+  }
+  try {
+    const current = await fs.lstat(destination);
+    if (sameIdentity(current, destinationIdentity)) await fs.rmdir(destination);
+  } catch {}
+}
+
 export async function main() {
   const args = process.argv.slice(2);
   if (args.length !== 1) { process.stderr.write(ARG_ERROR + '\n'); process.exitCode = 2; return; }
@@ -170,13 +196,40 @@ export async function main() {
   let data;
   try { data = await request(domain); if (!data) throw new Error('malformed'); } catch { process.stderr.write(SERVICE_ERROR + '\n'); process.exitCode = 3; return; }
   const stage = await fs.mkdtemp(path.resolve('.brand-stage-'));
+  let reserved = false;
+  let destinationIdentity;
+  let destinationConflict = false;
+  const committed = [];
   try {
     const files = { 'brand.json': json(data.brand), 'colors.json': json(data.colors), 'fonts.json': json(data.fonts), 'logos.json': json(data.logos), 'tokens.css': tokens(data), 'DESIGN.md': markdown(data) };
     for (const [name, content] of Object.entries(files)) await fs.writeFile(path.join(stage, name), content, 'utf8');
-    await fs.rename(stage, destination);
+    try {
+      await fs.mkdir(destination);
+      reserved = true;
+      destinationIdentity = await fs.lstat(destination);
+    } catch (error) {
+      if (error?.code === 'EEXIST') {
+        await fs.rm(stage, { recursive: true, force: true }).catch(() => {});
+        process.stderr.write(DEST_ERROR + '\n'); process.exitCode = 4; return;
+      }
+      throw error;
+    }
+    for (const name of Object.keys(files)) {
+      const target = path.join(destination, name);
+      try {
+        await fs.copyFile(path.join(stage, name), target, fs.constants.COPYFILE_EXCL);
+      } catch (error) {
+        if (error?.code === 'EEXIST') destinationConflict = true;
+        throw error;
+      }
+      committed.push([target, await fs.lstat(target)]);
+    }
   } catch {
     await fs.rm(stage, { recursive: true, force: true }).catch(() => {});
-    process.stderr.write(SERVICE_ERROR + '\n'); process.exitCode = 3; return;
+    if (reserved) await removeOwnedDestination(destination, destinationIdentity, committed);
+    process.stderr.write(destinationConflict ? DEST_ERROR + '\n' : SERVICE_ERROR + '\n');
+    process.exitCode = destinationConflict ? 4 : 3; return;
   }
+  await fs.rm(stage, { recursive: true, force: true });
   process.stdout.write('Brand kit written to ./brand/ (6 files)\n');
 }

@@ -14,7 +14,7 @@ Community leaders are responsible for clarifying and enforcing standards and may
 
 ## Scope and Enforcement
 
-This Code applies in community spaces and when an individual officially represents the community. Report unacceptable behavior to the project maintainers through the repository's private reporting channel.
+This Code applies in community spaces and when an individual officially represents the community. Report unacceptable behavior privately through the repository's GitHub Security Advisory form: https://github.com/replynodes/brand-kit/security/advisories/new. Do not post personal information or sensitive incident details in a public issue or pull request.
 
 ## Attribution
 

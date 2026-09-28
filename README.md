@@ -28,7 +28,7 @@ Pass exactly one bare domain. The client supports Node.js `>=20.19.0` on Linux x
 
 ## Artifacts
 
-The command creates exactly six files in `./brand/`: `brand.json`, `colors.json`, `fonts.json`, `logos.json`, `tokens.css`, and `DESIGN.md`. Output is staged and committed atomically; an existing destination is never overwritten.
+The command creates exactly six files in `./brand/`: `brand.json`, `colors.json`, `fonts.json`, `logos.json`, `tokens.css`, and `DESIGN.md`. Output is staged, then committed only after `./brand/` is exclusively reserved; existing destinations and files are never overwritten.
 
 ## Limitations and non-goals
 
