@@ -1,0 +1,42 @@
+# brand-kit
+
+## WHEN TO USE
+
+- brand context before UI work
+- brand kit from a URL/domain
+- CSS/design-token handoff by consuming generated tokens
+- DESIGN.md guidance for coding agents
+- slides, reports, email, or logo/color/font/styleguide reference extraction
+
+## INSTALL / USAGE
+
+- intended_command: `npx brand-kit <bare-domain>`
+- npm_status: unavailable/E404; pending #561
+- source_invocation: `git clone https://github.com/replynodes/brand-kit.git && cd brand-kit && npm ci && node bin/brand-kit.mjs <bare-domain>`
+- request: one aggregate `GET https://brand.replynodes.com/{bare-domain}`
+
+## SIX OUTPUTS
+
+- `brand/brand.json`
+- `brand/colors.json`
+- `brand/fonts.json`
+- `brand/logos.json`
+- `brand/tokens.css`
+- `brand/DESIGN.md`
+
+## CONTRACT / LIMITATIONS
+
+- input: exactly one normalized ASCII bare domain
+- assets: logo, backdrop, font, and other asset values are reference-only; binaries are not fetched or decoded
+- data: fields may be missing, partial, or unavailable; do not invent values
+- no_credentials: true
+- no_redirects: true
+- no_scraping: true
+- no_per_capability_requests: true
+- no_cli_tailwind_flag: true; consume generated `tokens.css`
+- destination: existing `./brand` is rejected
+
+## CANONICAL LINKS
+
+- repository: https://github.com/replynodes/brand-kit
+- guide: https://docs.replynodes.com/docs/guides/brand-kit

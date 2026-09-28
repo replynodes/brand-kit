@@ -2,23 +2,36 @@
 
 Turn a public domain into a deterministic, agent-ready brand context package in one command.
 
-## 10-second demo
+## Intended package command
+
+Npm publication is currently unavailable/E404 pending #561; this is the intended command once the package is published:
 
 ```sh
 npx brand-kit linear.app
-cat brand/brand.json
 ```
 
 ## Install and run
 
+Npm publication is currently unavailable/E404 pending #561. The truthful source/clone path is:
+
 ```sh
-npm install -g brand-kit
-brand-kit example.com
+git clone https://github.com/replynodes/brand-kit.git
+cd brand-kit
+npm ci
+node bin/brand-kit.mjs example.com
 ```
 
-Pass exactly one bare domain. The client supports Node.js `>=20.19.0` on Linux x64/arm64, macOS x64/arm64, and Windows x64. CI verifies Node 20.x and 22.x; that does not claim every OS combination is tested.
+The intended package command is exactly `npx brand-kit <bare-domain>`, but clean npm use is pending #561. Pass exactly one bare domain. The client supports Node.js `>=20.19.0`; CI verifies Node 20.x and 22.x, without claiming every OS combination is tested.
+
+## Discovery links
+
+- [Agent skill](SKILL.md)
+- [Machine-readable guidance](llms.txt)
+- [Discovery examples](examples/)
 
 ## Approved use cases
+
+These are the approved launch-story command forms; the npm path remains pending #561.
 
 - Agent-ready brand context: `npx brand-kit linear.app`
 - On-brand landing-page bootstrap: `npx brand-kit vercel.com`
