@@ -1,7 +1,8 @@
 {
   "name": "@replynodes/brand-kit",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Generate a deterministic, agent-ready brand context package from a public brand aggregate.",
+  "keywords": ["brand-kit", "brand-intelligence", "brand-assets", "brand-colors", "brand-fonts", "design-tokens", "design-system", "css", "developer-tools", "cli", "ai-agents", "web-design"],
   "type": "module",
   "bin": { "brand-kit": "bin/brand-kit.mjs" },
   "engines": { "node": ">=20.19.0" },
