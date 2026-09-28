@@ -1,0 +1,5 @@
+# @replynodes/brand-kit
+
+Run `npx @replynodes/brand-kit <bare-domain>` with exactly one bare domain. A global install uses `npm install -g @replynodes/brand-kit`, then the executable is `brand-kit <bare-domain>`.
+
+The client makes one HTTPS GET to `https://brand.replynodes.com/{bare-domain}` and writes local brand references and design artifacts. It requires no API key or signup and does not download binary assets. The v0.1.1 npm publication is the release target; the package is intended to be public on npm but is not yet published.

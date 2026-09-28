@@ -41,7 +41,7 @@ jobs:
           main_commit="$(git rev-parse refs/remotes/origin/main^{commit})"
           git merge-base --is-ancestor "$tag_commit" "$main_commit"
           test -z "$(git status --porcelain=v1)"
-          node --input-type=module -e 'import fs from "node:fs"; const p = JSON.parse(fs.readFileSync("package.json", "utf8")); if (p.version !== process.env.VERSION) process.exit(1)'
+          node --input-type=module -e 'import fs from "node:fs"; const p = JSON.parse(fs.readFileSync("package.json", "utf8")); const l = JSON.parse(fs.readFileSync("package-lock.json", "utf8")); if (p.name !== "@replynodes/brand-kit" || p.version !== process.env.VERSION || l.name !== p.name || l.version !== p.version || l.packages?.[""].name !== p.name || l.packages?.[""].version !== p.version || p.bin?.["brand-kit"] !== "bin/brand-kit.mjs") process.exit(1)'
           grep -Fx -- "## $VERSION" CHANGELOG.md
           test "$(git rev-parse "refs/tags/$expected_tag^{commit}")" = "$tag_commit"
       - run: npm ci

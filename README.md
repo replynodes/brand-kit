@@ -5,26 +5,28 @@ Turn a public domain into a deterministic, agent-ready brand context package in 
 ## 10-second demo
 
 ```sh
-npx brand-kit linear.app
+npx @replynodes/brand-kit linear.app
 cat brand/brand.json
 ```
 
 ## Install and run
 
 ```sh
-npm install -g brand-kit
+npm install -g @replynodes/brand-kit
 brand-kit example.com
 ```
+
+The package is scoped as `@replynodes/brand-kit`, while the installed executable remains `brand-kit`.
 
 Pass exactly one bare domain. The client supports Node.js `>=20.19.0` on Linux x64/arm64, macOS x64/arm64, and Windows x64. CI verifies Node 20.x and 22.x; that does not claim every OS combination is tested.
 
 ## Approved use cases
 
-- Agent-ready brand context: `npx brand-kit linear.app`
-- On-brand landing-page bootstrap: `npx brand-kit vercel.com`
-- CSS/token handoff: `npx brand-kit stripe.com`
-- Reusable reference package for slides/reports/email: `npx brand-kit github.com`
-- Portable design handoff/audit: `npx brand-kit notion.so`
+- Agent-ready brand context: `npx @replynodes/brand-kit linear.app`
+- On-brand landing-page bootstrap: `npx @replynodes/brand-kit vercel.com`
+- CSS/token handoff: `npx @replynodes/brand-kit stripe.com`
+- Reusable reference package for slides/reports/email: `npx @replynodes/brand-kit github.com`
+- Portable design handoff/audit: `npx @replynodes/brand-kit notion.so`
 
 ## Artifacts
 
@@ -44,4 +46,4 @@ The client in this repository is MIT-licensed. The hosted aggregate service at `
 
 ## Contribution and release notes
 
-See `CONTRIBUTING.md` for checks and contribution boundaries. CI runs smoke/contract checks on Node 20.x and 22.x. A future release workflow is manually triggerable for SemVer npm trusted publishing with provenance; this initial issue does not publish a release.
+See `CONTRIBUTING.md` for checks and contribution boundaries. CI runs smoke/contract checks on Node 20.x and 22.x. The v0.1.1 release target is publication of the scoped package to npm as a public package using trusted publishing with provenance; it has not yet been published.
