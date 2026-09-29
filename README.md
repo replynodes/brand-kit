@@ -31,6 +31,7 @@ Pass exactly one bare domain. The client supports Node.js `>=20.19.0`; CI verifi
 - [Agent skill](SKILL.md)
 - [Machine-readable guidance](llms.txt)
 - [Discovery examples](examples/)
+- [Launch demo](examples/launch/README.md)
 
 ## Approved use cases
 
@@ -58,4 +59,4 @@ The client in this repository is MIT-licensed. The hosted aggregate service at `
 
 ## Contribution and release notes
 
-See `CONTRIBUTING.md` for checks and contribution boundaries. CI runs smoke/contract checks on Node 20.x and 22.x. The published scoped npm release is `@replynodes/brand-kit@0.1.1`; v0.1.2 is a separate keyword patch.
+See `CONTRIBUTING.md` for checks and contribution boundaries. CI runs smoke/contract checks on Node 20.x and 22.x. The published scoped npm release is `@replynodes/brand-kit@0.1.2`.
