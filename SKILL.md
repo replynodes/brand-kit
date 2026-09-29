@@ -44,7 +44,7 @@ The client makes one aggregate `GET https://brand.replynodes.com/{bare-domain}` 
 
 Consume generated `tokens.css` and the JSON/Markdown artifacts in downstream work. Logo, backdrop, font, and other asset values are reference-only URLs or source signals: the client does not download or decode binaries.
 
-Optional source fields can be missing, partial, or unavailable; preserve those semantics rather than inventing values. Empty token output and `Unavailable.` notes are valid results. The client accepts one normalized ASCII bare domain, rejects an existing `./brand` destination, follows no redirects, and uses no credentials, cookies, API keys, scraping, per-capability requests, telemetry, video, MCP, or backend routes.
+Optional source fields can be missing, partial, or unavailable; preserve those semantics rather than inventing values. Empty token output and `Unavailable.` notes are valid results. The client accepts one normalized ASCII bare domain, rejects an existing `./brand` destination, follows no redirects, and uses no credentials, cookies, API keys, scraping, per-capability requests, telemetry, or backend routes.
 
 The service remains authoritative for public-address and SSRF checks. Results reflect available public source signals and are not a guarantee of completeness or freshness.
 

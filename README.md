@@ -5,7 +5,7 @@ Turn a public domain into a deterministic, agent-ready brand context package in 
 ## Package command
 
 ```sh
-npx @replynodes/brand-kit linear.app
+npx @replynodes/brand-kit <bare-domain>
 ```
 
 ## Install and run
@@ -46,7 +46,7 @@ The command creates exactly six files in `./brand/`: `brand.json`, `colors.json`
 
 ## Limitations and non-goals
 
-This is a references-only client: it does not download or decode logos, fonts, or other binaries; scrape pages; follow redirects; sign up; accept API keys; send cookies; make per-capability requests; or provide video, Tailwind, MCP, or telemetry features. Optional source signals can be unavailable. The hosted service remains authoritative for public-address and SSRF checks.
+This is a references-only client: it does not download or decode logos, fonts, or other binaries; scrape pages; follow redirects; sign up; accept API keys; send cookies; make per-capability requests; or provide telemetry features. Optional source signals can be unavailable. The hosted service remains authoritative for public-address and SSRF checks.
 
 ## How it works
 
