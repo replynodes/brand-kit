@@ -1,12 +1,22 @@
-# CSS and token handoff for stripe.com
+# CSS token handoff
 
-Generate local CSS and design-token references for a Stripe handoff:
+Prepare a token handoff for `stripe.com`.
 
 ```sh
 npx @replynodes/brand-kit stripe.com
 ```
 
-The package is scoped as `@replynodes/brand-kit`. Version `0.1.1` publication is
-the release target and has not happened. Runtime is one GET to
-`https://brand.replynodes.com/stripe.com`; no API key or signup is required, and
-no binary downloads are involved.
+For a source checkout, use this distinct fallback:
+
+```sh
+git clone https://github.com/replynodes/brand-kit.git
+cd brand-kit
+npm ci
+node bin/brand-kit.mjs stripe.com
+```
+
+Expected output in `./brand/`: `brand.json`, `colors.json`, `fonts.json`, `logos.json`, `tokens.css`, and `DESIGN.md`.
+
+Consumer workflow: consume the generated `tokens.css` in the stylesheet or map its variables into the project’s existing token system; use the JSON files to inspect provenance.
+
+Limitations: tokens only reflect available source signals, so missing, partial, or unavailable colors and fonts remain possible. The client makes one aggregate GET, uses no credentials, and does not fetch asset binaries.

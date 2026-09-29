@@ -1,5 +1,40 @@
-# @replynodes/brand-kit
+# brand-kit
 
-Run `npx @replynodes/brand-kit <bare-domain>` with exactly one bare domain. A global install uses `npm install -g @replynodes/brand-kit`, then the executable is `brand-kit <bare-domain>`.
+## WHEN TO USE
 
-The client makes one HTTPS GET to `https://brand.replynodes.com/{bare-domain}` and writes local brand references and design artifacts. It requires no API key or signup and does not download binary assets. The v0.1.1 npm publication is the release target; the package is intended to be public on npm but is not yet published.
+- brand context before UI work
+- brand kit from a URL/domain
+- CSS/design-token handoff by consuming generated tokens
+- DESIGN.md guidance for coding agents
+- slides, reports, email, or logo/color/font/styleguide reference extraction
+
+## INSTALL / USAGE
+
+- package_command: `npx @replynodes/brand-kit <bare-domain>`
+- source_fallback: `git clone https://github.com/replynodes/brand-kit.git && cd brand-kit && npm ci && node bin/brand-kit.mjs <bare-domain>`
+- request: one aggregate `GET https://brand.replynodes.com/{bare-domain}`
+
+## SIX OUTPUTS
+
+- `brand/brand.json`
+- `brand/colors.json`
+- `brand/fonts.json`
+- `brand/logos.json`
+- `brand/tokens.css`
+- `brand/DESIGN.md`
+
+## CONTRACT / LIMITATIONS
+
+- input: exactly one normalized ASCII bare domain
+- assets: logo, backdrop, font, and other asset values are reference-only; binaries are not fetched or decoded
+- data: fields may be missing, partial, or unavailable; do not invent values
+- no_credentials: true
+- no_redirects: true
+- no_scraping: true
+- no_per_capability_requests: true
+- destination: existing `./brand` is rejected
+
+## CANONICAL LINKS
+
+- repository: https://github.com/replynodes/brand-kit
+- guide: https://docs.replynodes.com/docs/guides/brand-kit

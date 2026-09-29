@@ -2,23 +2,35 @@
 
 Turn a public domain into a deterministic, agent-ready brand context package in one command.
 
-## 10-second demo
+## Package command
 
 ```sh
-npx @replynodes/brand-kit linear.app
-cat brand/brand.json
+npx @replynodes/brand-kit <bare-domain>
 ```
 
 ## Install and run
 
+The published package is scoped as `@replynodes/brand-kit`; the executable remains `brand-kit`.
+
 ```sh
-npm install -g @replynodes/brand-kit
-brand-kit example.com
+npx @replynodes/brand-kit <bare-domain>
 ```
 
-The package is scoped as `@replynodes/brand-kit`, while the installed executable remains `brand-kit`.
+For a source checkout, use this distinct fallback:
 
-Pass exactly one bare domain. The client supports Node.js `>=20.19.0` on Linux x64/arm64, macOS x64/arm64, and Windows x64. CI verifies Node 20.x and 22.x; that does not claim every OS combination is tested.
+```sh
+git clone https://github.com/replynodes/brand-kit.git
+cd brand-kit
+npm ci
+node bin/brand-kit.mjs <bare-domain>
+```
+Pass exactly one bare domain. The client supports Node.js `>=20.19.0`; CI verifies Node 20.x and 22.x, without claiming every OS combination is tested.
+
+## Discovery links
+
+- [Agent skill](SKILL.md)
+- [Machine-readable guidance](llms.txt)
+- [Discovery examples](examples/)
 
 ## Approved use cases
 
@@ -34,11 +46,11 @@ The command creates exactly six files in `./brand/`: `brand.json`, `colors.json`
 
 ## Limitations and non-goals
 
-This is a references-only client: it does not download or decode logos, fonts, or other binaries; scrape pages; follow redirects; sign up; accept API keys; send cookies; make per-capability requests; or provide video, Tailwind, MCP, or telemetry features. Optional source signals can be unavailable. The hosted service remains authoritative for public-address and SSRF checks.
+This is a references-only client: it does not download or decode logos, fonts, or other binaries; scrape pages; follow redirects; sign up; accept API keys; send cookies; make per-capability requests; or provide telemetry features. Optional source signals can be unavailable. The hosted service remains authoritative for public-address and SSRF checks.
 
 ## How it works
 
-The CLI validates one normalized ASCII bare domain, makes one timed HTTPS GET to `https://brand.replynodes.com/{domain}`, normalizes the aggregate response, and writes stable JSON, CSS, and Markdown artifacts. The client uses only Node.js built-ins.
+The CLI validates one normalized ASCII bare domain, makes one timed HTTPS GET to `https://brand.replynodes.com/{bare-domain}`, normalizes the aggregate response, and writes stable JSON, CSS, and Markdown artifacts. The client uses only Node.js built-ins.
 
 ## Attribution and service boundary
 
@@ -46,4 +58,4 @@ The client in this repository is MIT-licensed. The hosted aggregate service at `
 
 ## Contribution and release notes
 
-See `CONTRIBUTING.md` for checks and contribution boundaries. CI runs smoke/contract checks on Node 20.x and 22.x. The published scoped npm release is `@replynodes/brand-kit@0.1.1`; v0.1.2 is an unpublished patch replacement adding npm discovery keywords.
+See `CONTRIBUTING.md` for checks and contribution boundaries. CI runs smoke/contract checks on Node 20.x and 22.x. The published scoped npm release is `@replynodes/brand-kit@0.1.1`; v0.1.2 is a separate keyword patch.

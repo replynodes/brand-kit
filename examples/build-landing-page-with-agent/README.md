@@ -1,13 +1,22 @@
-# Build a landing page with an agent for vercel.com
+# Build a landing page with an agent
 
-Give an agent a local, deterministic brand reference package for a Vercel
-landing page:
+Use `vercel.com` to gather brand context before implementing a landing page.
 
 ```sh
 npx @replynodes/brand-kit vercel.com
 ```
 
-The package is scoped as `@replynodes/brand-kit`. Version `0.1.1` publication is
-the release target and has not happened. Runtime is one GET to
-`https://brand.replynodes.com/vercel.com`; no API key or signup is required, and
-no binary downloads are involved.
+For a source checkout, use this distinct fallback:
+
+```sh
+git clone https://github.com/replynodes/brand-kit.git
+cd brand-kit
+npm ci
+node bin/brand-kit.mjs vercel.com
+```
+
+Expected output in `./brand/`: `brand.json`, `colors.json`, `fonts.json`, `logos.json`, `tokens.css`, and `DESIGN.md`.
+
+Consumer workflow: read `DESIGN.md` and the JSON context before UI work, use `tokens.css` for available colors and fonts, and treat logo URLs as references when selecting imagery.
+
+Limitations: the client performs one aggregate GET, uses no credentials, does not fetch or decode asset binaries, and source fields may be missing, partial, or unavailable. An existing `./brand` directory is rejected.

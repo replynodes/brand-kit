@@ -1,12 +1,22 @@
-# Design handoff audit for notion.so
+# Design handoff audit
 
-Create a portable set of brand references for auditing a Notion design handoff:
+Audit available design signals for `notion.so`.
 
 ```sh
 npx @replynodes/brand-kit notion.so
 ```
 
-The package is scoped as `@replynodes/brand-kit`. Version `0.1.1` publication is
-the release target and has not happened. Runtime is one GET to
-`https://brand.replynodes.com/notion.so`; no API key or signup is required, and
-no binary downloads are involved.
+For a source checkout, use this distinct fallback:
+
+```sh
+git clone https://github.com/replynodes/brand-kit.git
+cd brand-kit
+npm ci
+node bin/brand-kit.mjs notion.so
+```
+
+Expected output in `./brand/`: `brand.json`, `colors.json`, `fonts.json`, `logos.json`, `tokens.css`, and `DESIGN.md`.
+
+Consumer workflow: compare `DESIGN.md` with the JSON source fields, review `tokens.css` for usable variables, and record unavailable signals as gaps in the handoff rather than filling them in.
+
+Limitations: the client makes one aggregate GET, uses no credentials, does not scrape or fetch binaries, and can return missing, partial, or unavailable source signals. An existing `./brand` destination is rejected.

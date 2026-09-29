@@ -1,12 +1,22 @@
-# Generate a brand kit for linear.app
+# Generate a brand kit
 
-Create an agent-ready local brand context package from Linear’s public domain:
+Generate a reference package for `linear.app`.
 
 ```sh
 npx @replynodes/brand-kit linear.app
 ```
 
-The package is scoped as `@replynodes/brand-kit`. Version `0.1.1` publication is
-the release target and has not happened. At runtime, the client makes one GET to
-`https://brand.replynodes.com/linear.app`; no API key or signup is required, and
-no binary downloads are involved.
+For a source checkout, use this distinct fallback:
+
+```sh
+git clone https://github.com/replynodes/brand-kit.git
+cd brand-kit
+npm ci
+node bin/brand-kit.mjs linear.app
+```
+
+Expected output in `./brand/`: `brand.json`, `colors.json`, `fonts.json`, `logos.json`, `tokens.css`, and `DESIGN.md`.
+
+Consumer workflow: inspect the six artifacts as a single package, use structured JSON for automation, and use `DESIGN.md` for a readable summary and provenance.
+
+Limitations: one aggregate GET is made to the hosted service; no credentials, scraping, redirects, or asset downloads are used. Values can be missing, partial, or unavailable, and an existing `./brand` destination is rejected.
