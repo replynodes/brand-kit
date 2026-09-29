@@ -3,10 +3,10 @@
 Generate a reference package for `linear.app`.
 
 ```sh
-npx brand-kit linear.app
+npx @replynodes/brand-kit linear.app
 ```
 
-The intended npm command is shown above, but clean npm use is blocked until #561 publishes the package. The truthful source invocation is:
+For a source checkout, use this distinct fallback:
 
 ```sh
 git clone https://github.com/replynodes/brand-kit.git

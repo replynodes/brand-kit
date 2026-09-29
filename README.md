@@ -2,26 +2,29 @@
 
 Turn a public domain into a deterministic, agent-ready brand context package in one command.
 
-## Intended package command
-
-Npm publication is currently unavailable/E404 pending #561; this is the intended command once the package is published:
+## Package command
 
 ```sh
-npx brand-kit linear.app
+npx @replynodes/brand-kit linear.app
 ```
 
 ## Install and run
 
-Npm publication is currently unavailable/E404 pending #561. The truthful source/clone path is:
+The published package is scoped as `@replynodes/brand-kit`; the executable remains `brand-kit`.
+
+```sh
+npx @replynodes/brand-kit <bare-domain>
+```
+
+For a source checkout, use this distinct fallback:
 
 ```sh
 git clone https://github.com/replynodes/brand-kit.git
 cd brand-kit
 npm ci
-node bin/brand-kit.mjs example.com
+node bin/brand-kit.mjs <bare-domain>
 ```
-
-The intended package command is exactly `npx brand-kit <bare-domain>`, but clean npm use is pending #561. Pass exactly one bare domain. The client supports Node.js `>=20.19.0`; CI verifies Node 20.x and 22.x, without claiming every OS combination is tested.
+Pass exactly one bare domain. The client supports Node.js `>=20.19.0`; CI verifies Node 20.x and 22.x, without claiming every OS combination is tested.
 
 ## Discovery links
 
@@ -31,13 +34,11 @@ The intended package command is exactly `npx brand-kit <bare-domain>`, but clean
 
 ## Approved use cases
 
-These are the approved launch-story command forms; the npm path remains pending #561.
-
-- Agent-ready brand context: `npx brand-kit linear.app`
-- On-brand landing-page bootstrap: `npx brand-kit vercel.com`
-- CSS/token handoff: `npx brand-kit stripe.com`
-- Reusable reference package for slides/reports/email: `npx brand-kit github.com`
-- Portable design handoff/audit: `npx brand-kit notion.so`
+- Agent-ready brand context: `npx @replynodes/brand-kit linear.app`
+- On-brand landing-page bootstrap: `npx @replynodes/brand-kit vercel.com`
+- CSS/token handoff: `npx @replynodes/brand-kit stripe.com`
+- Reusable reference package for slides/reports/email: `npx @replynodes/brand-kit github.com`
+- Portable design handoff/audit: `npx @replynodes/brand-kit notion.so`
 
 ## Artifacts
 
@@ -49,7 +50,7 @@ This is a references-only client: it does not download or decode logos, fonts, o
 
 ## How it works
 
-The CLI validates one normalized ASCII bare domain, makes one timed HTTPS GET to `https://brand.replynodes.com/{domain}`, normalizes the aggregate response, and writes stable JSON, CSS, and Markdown artifacts. The client uses only Node.js built-ins.
+The CLI validates one normalized ASCII bare domain, makes one timed HTTPS GET to `https://brand.replynodes.com/{bare-domain}`, normalizes the aggregate response, and writes stable JSON, CSS, and Markdown artifacts. The client uses only Node.js built-ins.
 
 ## Attribution and service boundary
 
@@ -57,4 +58,4 @@ The client in this repository is MIT-licensed. The hosted aggregate service at `
 
 ## Contribution and release notes
 
-See `CONTRIBUTING.md` for checks and contribution boundaries. CI runs smoke/contract checks on Node 20.x and 22.x. A future release workflow is manually triggerable for SemVer npm trusted publishing with provenance; this initial issue does not publish a release.
+See `CONTRIBUTING.md` for checks and contribution boundaries. CI runs smoke/contract checks on Node 20.x and 22.x. The published scoped npm release is `@replynodes/brand-kit@0.1.1`; v0.1.2 is a separate keyword patch.

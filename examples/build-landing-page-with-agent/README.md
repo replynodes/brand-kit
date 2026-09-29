@@ -3,10 +3,10 @@
 Use `vercel.com` to gather brand context before implementing a landing page.
 
 ```sh
-npx brand-kit vercel.com
+npx @replynodes/brand-kit vercel.com
 ```
 
-The intended npm command is shown above, but clean npm use is blocked until #561 publishes the package. The truthful source invocation is:
+For a source checkout, use this distinct fallback:
 
 ```sh
 git clone https://github.com/replynodes/brand-kit.git

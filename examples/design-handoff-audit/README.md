@@ -3,10 +3,10 @@
 Audit available design signals for `notion.so`.
 
 ```sh
-npx brand-kit notion.so
+npx @replynodes/brand-kit notion.so
 ```
 
-The intended npm command is shown above, but clean npm use is blocked until #561 publishes the package. The truthful source invocation is:
+For a source checkout, use this distinct fallback:
 
 ```sh
 git clone https://github.com/replynodes/brand-kit.git
