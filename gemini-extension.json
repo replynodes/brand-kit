@@ -1,6 +1,6 @@
 {
   "name": "brand-kit",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Generate an agent-ready brand context package with brand assets, colors, fonts, and design tokens.",
   "contextFileName": "SKILL.md"
 }
