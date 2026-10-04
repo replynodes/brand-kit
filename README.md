@@ -26,6 +26,14 @@ node bin/brand-kit.mjs <bare-domain>
 ```
 Pass exactly one bare domain. The client supports Node.js `>=20.19.0`; CI verifies Node 20.x and 22.x, without claiming every OS combination is tested.
 
+## Use this with your AI agent
+
+Install the canonical ReplyNodes skill for agent-driven brand research:
+
+```sh
+npx skills add replynodes/replynodes-agent-skills --skill brand-kit
+```
+
 ## Discovery links
 
 - [Agent skill](SKILL.md)
